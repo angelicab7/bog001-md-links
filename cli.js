@@ -33,4 +33,22 @@ args.forEach((arg, index) => {
 });
 */
 
-mdLinks(argv._[0], { validate: argv.validate, stats: argv.stats });
+mdLinks(argv._[0], { validate: argv.validate, stats: argv.stats }).then((links) => {
+    const stats = {};
+    if (argv.stats) {
+        stats.total = links.length;
+        const distinctLinks = [...new Set(links.map(link => link.href))];
+        stats.unique = distinctLinks.length;
+        if (argv.validate) {
+            const brokenLinks = links.filter(link => !link.ok);
+            stats.broken = brokenLinks.length;
+        }
+    }
+
+    console.log(links, stats);
+    /*
+    links.forEach(link => {
+        console.log(link.file, link.href, link.text);
+    })
+    */
+});

@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/angelicab7/bog001-md-links#readme",
   "dependencies": {
+    "axios": "^0.20.0",
     "marked": "^1.1.1",
     "yargs": "^16.0.3"
   },
