@@ -41,7 +41,7 @@ function validateLinks(links) {
 
 /**
  * 
- * @param {string} path - Path to the MD file
+ * @param {string} filePath - Path to the MD file
  * @param {Object} options - Program options
  * @param {boolean?} options.validate - Validates each link to check if the link is broken or not
  * @param {boolean?} options.stats - Shows some basic statistics about the links in the file
@@ -70,7 +70,7 @@ function mdLinks(filePath, options = {}) {
         fs.readFile(resolvedFilePath, { encoding: 'utf-8' }, (error, data) => {
             if (error) {
                 reject(error)
-                throw error;
+                return;
             } //callback asíncrono
 
             marked(data, { walkTokens }); // convertir el archivo .md a uno html para que sea mucho mas facil extraer los links

@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,32 @@
   },
   "bin": {
     "md-links": "./cli.js"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 70,
+        "lines": 70
+      }
+    },
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "coverageReporters": [
+      "json",
+      "text",
+      "lcov",
+      "clover",
+      "html"
+    ]
+  },
+  "devDependencies": {
+    "jest": "^26.4.2"
   }
 }
