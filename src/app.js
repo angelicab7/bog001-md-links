@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const marked = require('marked');
 const axios = require('axios').default;
-const http = require('http');
 
 /**
  * Validate links
@@ -48,7 +47,7 @@ function validateLinks(links) {
  * @param {boolean?} options.stats - Shows some basic statistics about the links in the file
  */
 function mdLinks(filePath, options = {}) {
-    const resolvedFilePath = path.resolve(filePath);
+    const resolvedFilePath = path.resolve(filePath); //node.js path module convierte las rutas relativas en rutas absolutas para poder ser leidas
 
     return new Promise((resolve, reject) => {
         const links = [];
@@ -58,23 +57,24 @@ function mdLinks(filePath, options = {}) {
          * @param {marked.TokensList} token 
          * @see https://marked.js.org/using_pro#walk-tokens
          */
-        function walkTokens(token) {
+        function walkTokens(token) {// verifica el tipo de token, que en este caso es un link, y luego se incluyen links de tipo http para que los tome y tambien los de tipo https
             if (token.type === 'link' && token.href.includes('http')) {
                 links.push({
                     href: token.href,
-                    text: token.text,
+                    text: token.text, //objeto con los values que nos vamos a traer
                     file: resolvedFilePath
                 });
             }
         };
-
+           //leer archivos del file system 
         fs.readFile(resolvedFilePath, { encoding: 'utf-8' }, (error, data) => {
             if (error) {
                 reject(error)
                 throw error;
-            }
+            } //callback asíncrono
 
-            marked(data, { walkTokens });
+            marked(data, { walkTokens }); // convertir el archivo .md a uno html para que sea mucho mas facil extraer los links
+
 
             if(options.validate) {
                 validateLinks(links).then(() => {

@@ -100,7 +100,7 @@ algunas estadísticas.
 
 Github Packages
   <kbd>
-      $ npm install angelicabonilla/md-links
+      $ npm install @angelicabonilla/md-links
   </kbd>
 
 ## Uso del Modulo
