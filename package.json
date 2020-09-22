@@ -28,7 +28,7 @@
   "bin": {
     "md-links": "./cli.js"
   },
-  "jest": {
+  "jest": { //configuracion de coverage de los tests
     "collectCoverage": true,
     "collectCoverageFrom": [
       "./src/**"

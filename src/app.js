@@ -8,33 +8,33 @@ const axios = require('axios').default;
  * @param {string[]} links - Array of links to validate
  */
 function validateLinks(links) {
-    return new Promise((resolve)=>{
-       const promiseArray=[];
-        links.forEach((link)=>{
+    return new Promise((resolve) => {
+        const promiseArray = [];
+        links.forEach((link) => {
             promiseArray.push(new Promise(resolve => {
-                axios.get(link.href).then(response =>{
+                axios.get(link.href).then(response => {
                     link.status = response.status;
-                    link.ok=true;
+                    link.ok = true;
                     resolve();
                 }).catch(error => {
-                    let status=500; // unknown error
-                    if(error.response) {
-                        status= error.response.status;// the server says some error
+                    let status = 500; // unknown error
+                    if (error.response) {
+                        status = error.response.status;// the server says some error
                     }
-                    if(error.request) {
-                        status=503; // the server is not ready to handle the request
+                    if (error.request) {
+                        status = 503; // the server is not ready to handle the request
                     }
-                    link.status=status;
-                    link.ok=false;
+                    link.status = status;
+                    link.ok = false;
                     resolve();
                 });
             }));
         });
 
-      //se resuelven todas las promesas al tiempo
-        Promise.all(promiseArray).then(()=>{
+        //se resuelven todas las promesas al tiempo
+        Promise.all(promiseArray).then(() => {
             resolve(links);
-        }) 
+        })
     });
 }
 
@@ -48,9 +48,14 @@ function validateLinks(links) {
  */
 function mdLinks(filePath, options = {}) {
     const resolvedFilePath = path.resolve(filePath); //node.js path module convierte las rutas relativas en rutas absolutas para poder ser leidas
-
+    const fileExtension = path.extname(filePath);
+     //le ponemos .extname al filePath para que solo funcione con archivos .md
     return new Promise((resolve, reject) => {
         const links = [];
+
+        if (fileExtension !== '.md') { 
+            reject('File is not supported');
+        }
 
         /**
          * The walkTokens function gets called with every token that is inside the Markdown file
@@ -66,7 +71,7 @@ function mdLinks(filePath, options = {}) {
                 });
             }
         };
-           //leer archivos del file system 
+        //leer archivos del file system 
         fs.readFile(resolvedFilePath, { encoding: 'utf-8' }, (error, data) => {
             if (error) {
                 reject(error)
@@ -76,7 +81,7 @@ function mdLinks(filePath, options = {}) {
             marked(data, { walkTokens }); // convertir el archivo .md a uno html para que sea mucho mas facil extraer los links
 
 
-            if(options.validate) {
+            if (options.validate) {
                 validateLinks(links).then(() => {
                     resolve(links);
                 });
