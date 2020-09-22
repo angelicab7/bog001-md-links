@@ -100,13 +100,13 @@ algunas estadísticas.
 
 Github Packages
   <kbd>
-      $ npm install @angelicabonilla/md-links
+      $ npm install @angelicab7/md-links
   </kbd>
 
 ## Uso del Modulo
 
   <kbd>
-      const mdlinks = require('@angelicabonilla/md-links')
+      const mdlinks = require('@angelicab7/md-links')
   </kbd>
 
   *Muestra un arreglo de objetos con las url y  el archivo donde se encontró el enlace*
@@ -165,10 +165,10 @@ mdlinks('./README.md', { validate: true, stats: true})
 
 ### Testing
 
-* [ ] [Testeo unitario.](https://jestjs.io/docs/es-ES/getting-started)
-* [ ] [Testeo asíncrono.](https://jestjs.io/docs/es-ES/asynchronous)
-* [ ] [Uso de librerias de Mock.](https://jestjs.io/docs/es-ES/manual-mocks)
-* [ ] Uso de Mocks manuales.
+* [x] [Testeo unitario.](https://jestjs.io/docs/es-ES/getting-started)
+* [x] [Testeo asíncrono.](https://jestjs.io/docs/es-ES/asynchronous)
+* [x] [Uso de librerias de Mock.](https://jestjs.io/docs/es-ES/manual-mocks)
+* [x] Uso de Mocks manuales.
 * [ ] Testeo para múltiples Sistemas Operativos.
 
 ### Estructura del código y guía de estilo
@@ -193,7 +193,7 @@ mdlinks('./README.md', { validate: true, stats: true})
 * [ ] [Recursión.](https://www.youtube.com/watch?v=lPPgY3HLlhQ)
 
 
-* [ ] Puede instalarse via `npm install --global <github-user>/md-links`
+* [x] Puede instalarse via `npm install --global <github-user>/md-links`
 
 ### `README.md`
 
@@ -217,6 +217,6 @@ mdlinks('./README.md', { validate: true, stats: true})
 
 ### Pruebas / tests
 
-* [ ] Pruebas unitarias cubren un mínimo del 70% de statements, functions,
+* [x] Pruebas unitarias cubren un mínimo del 70% de statements, functions,
   lines, y branches.
-* [ ] Pasa tests (y linters) (`npm test`).
+* [x] Pasa tests (y linters) (`npm test`).
